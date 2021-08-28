@@ -1,5 +1,6 @@
 'use strict';
 const fetchProducts = require('../helpers/fetchProducts');
+const { headers } = require('../config.json');
 
 module.exports.getProductsById = async (event) => {
   const { productId } = event.pathParameters || '';
@@ -10,6 +11,7 @@ module.exports.getProductsById = async (event) => {
   } catch (e) {
       return {
           statusCode: 500,
+          headers,
           body: JSON.stringify({
               message: 'Server error'
           })
@@ -18,6 +20,7 @@ module.exports.getProductsById = async (event) => {
   if(!product.length){
       return {
           statusCode: 404,
+          headers,
           body: JSON.stringify({
               message: 'Product not found'
           })
@@ -25,6 +28,7 @@ module.exports.getProductsById = async (event) => {
   } else {
       return {
           statusCode: 200,
+          headers,
           body: JSON.stringify(product)
       };
   };
