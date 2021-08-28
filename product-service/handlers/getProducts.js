@@ -1,12 +1,20 @@
 'use strict';
-const allProducts = require('./hardcodedDB.json');
+
+const fetchProducts = require('../helpers/fetchProducts');
+
 module.exports.getProducts = async (event) => {
-  console.log('event', event);
+  let allProducts;
+  try {
+    allProducts = await fetchProducts();
+  } catch (e) {
+    return {
+      statusCode: e.code,
+      body: JSON.stringify(e.message)
+    };
+  }
+
   return {
     statusCode: 200,
     body: JSON.stringify(allProducts)
   };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
