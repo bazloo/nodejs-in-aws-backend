@@ -1,13 +1,16 @@
-'use strict';
 const fetchProducts = require('../helpers/fetchProducts');
 const { headers } = require('../config.json');
 
-module.exports.getProductsById = async (event) => {
+function findProductsById(products, id){
+    return products.filter(product => product.id === id);
+}
+
+getProductsById = async (event) => {
   const { productId } = event.pathParameters || '';
   let product;
   try {
       const allProducts = await fetchProducts();
-      product = allProducts.filter(product => product.id === productId);
+      product = findProductsById(allProducts, productId);
   } catch (e) {
       return {
           statusCode: 500,
@@ -33,4 +36,9 @@ module.exports.getProductsById = async (event) => {
       };
   };
 
+};
+
+module.exports = {
+    findProductsById,
+    getProductsById
 };
