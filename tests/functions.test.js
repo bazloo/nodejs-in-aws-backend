@@ -3,7 +3,7 @@ const arrayOfProducts = require('../fakeDB-service/handlers/fakeDB.json');
 const someCorrectId = '7567ec4b-b10c-48c5-9345-fc73c48a80aa';
 
 test('Function should return an object',()=>{
-    expect( typeof findProductsById(arrayOfProducts, someCorrectId)).toBe('object');
+    expect(typeof findProductsById(arrayOfProducts, someCorrectId)).toBe('object');
 });
 
 test('Function should return exact object inside an array',()=>{
