@@ -1,11 +1,8 @@
 const fetchProducts = require('../helpers/fetchProducts');
+const findProductsById = require('../helpers/findProductsById');
 const { headers } = require('../config.json');
 
-function findProductsById(products, id){
-    return products.filter(product => product.id === id);
-}
-
-getProductsById = async (event) => {
+module.exports.getProductsById = async (event) => {
   const { productId } = event.pathParameters || '';
   let product;
   try {
@@ -36,9 +33,4 @@ getProductsById = async (event) => {
       };
   };
 
-};
-
-module.exports = {
-    findProductsById,
-    getProductsById
 };
