@@ -1,13 +1,13 @@
-const fetchProducts = require('../helpers/fetchProducts');
-const findProductsById = require('../helpers/findProductsById');
+const { client } = require('../helpers/databaseConnection');
 const { headers } = require('../config.json');
+const { selectProductById } = require('../helpers/queries');
 
 module.exports.getProductsById = async (event) => {
   const { productId } = event.pathParameters || '';
   let product;
+  client.connect();
   try {
-      const allProducts = await fetchProducts();
-      product = findProductsById(allProducts, productId);
+      product = await client.query(selectProductById(productId));
   } catch (e) {
       return {
           statusCode: 500,
@@ -16,8 +16,11 @@ module.exports.getProductsById = async (event) => {
               message: 'Server error'
           })
       }
+  } finally {
+      client.end()
   };
-  if(!product.length){
+
+  if(!product){
       return {
           statusCode: 404,
           headers,
@@ -29,7 +32,7 @@ module.exports.getProductsById = async (event) => {
       return {
           statusCode: 200,
           headers,
-          body: JSON.stringify(product)
+          body: JSON.stringify(product.rows)
       };
   };
 
