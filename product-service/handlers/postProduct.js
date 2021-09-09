@@ -4,6 +4,7 @@ const LIVR = require('livr');
 const { insertProduct } = require('../helpers/queries');
 
 module.exports.postProduct = async (event) => {
+    console.log(event);
     const validator = new LIVR.Validator({
         title: ['required', 'string', { length_between: [ 2, 360 ]}],
         description: ['string', {max_length: 260}],

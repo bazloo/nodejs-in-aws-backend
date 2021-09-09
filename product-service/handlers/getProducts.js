@@ -1,7 +1,9 @@
 const { headers } = require('../config.json');
 const { client } = require('../helpers/databaseConnection');
 const { selectAllProducts } = require('../helpers/queries');
+
 module.exports.getProducts = async (event) => {
+    console.log(event);
     client.connect();
     let allProducts;
     try {

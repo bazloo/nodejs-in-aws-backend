@@ -3,6 +3,7 @@ const { headers } = require('../config.json');
 const { selectProductById } = require('../helpers/queries');
 
 module.exports.getProductsById = async (event) => {
+  console.log(event);
   const { productId } = event.pathParameters || '';
   let product;
   client.connect();
