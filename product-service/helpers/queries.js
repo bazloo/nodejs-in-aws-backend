@@ -18,5 +18,6 @@ function insertProduct (title, description, price, count) {
 
 module.exports = {
     selectAllProducts,
-    selectProductById
+    selectProductById,
+    insertProduct
 }
