@@ -35,7 +35,7 @@ module.exports.fileParser = async (event) => {
 
                     await s3.deleteObject({
                         Bucket: Bucket,
-                        Key: key,
+                        Key: Key,
                     }).promise();
 
                     console.log('Object deleted from "uploaded" folder: DONE');
