@@ -5,7 +5,7 @@ const Bucket = 'vedro-for-import-practice';
 
 module.exports.fileParser = async (event) => {
     console.log('EventInfo:', event);
-    const Key = event.Records.s3.object.key;
+    const Key = event.Records[0].s3.object.key;
     console.log('Key:', event);
     const params = {
         Bucket,
