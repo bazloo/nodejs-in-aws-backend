@@ -3,9 +3,9 @@ const s3 = new AWS.S3({region: 'eu-west-1'});
 const BUCKET = 'vedro-for-import-practice';
 
 module.exports.importProducts = async (event) => {
-    console.log(event);
+    console.log('EVENT:', event);
     const {fileName} = event.queryStringParameters || '';
-    console.log('File-name:', fileName);
+    console.log('FILE NAME:', fileName);
     const uploadParams = {
         Bucket: BUCKET,
         Key: `uploaded/${fileName}`,
@@ -15,13 +15,10 @@ module.exports.importProducts = async (event) => {
     let signedUrl;
     try {
         signedUrl = await new Promise((resolve, reject) => {
-            return s3.getSignedUrl('putObject', uploadParams, (error, url) => {
-                if (error) {
-                    reject(error);
-                }
+            return s3.getSignedUrl('putObject', uploadParams, (err, url) => {
                 resolve(url);
             });
-        })
+        }).catch(e => throw e);
     } catch (e) {
         return {
             statusCode: 200,
