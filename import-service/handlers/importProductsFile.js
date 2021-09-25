@@ -3,8 +3,9 @@ const s3 = new AWS.S3({region: 'eu-west-1'});
 const BUCKET = 'vedro-for-import-practice';
 
 module.exports.importProducts = async (event) => {
-    console.log(event.pathParameters);
-    const {fileName} = event.pathParameters || '';
+    console.log(event);
+    const {fileName} = event.queryStringParameters || '';
+    console.log('File-name:', fileName);
     const uploadParams = {
         Bucket: BUCKET,
         Key: `uploaded/${fileName}`,
