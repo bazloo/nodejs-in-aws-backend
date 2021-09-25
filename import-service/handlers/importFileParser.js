@@ -9,7 +9,7 @@ module.exports.fileParser = async (event) => {
     console.log('Key:', Key);
     const params = {
         Bucket,
-        Key: Key
+        Key
     };
     console.log('Params:', params);
     try {
@@ -26,7 +26,7 @@ module.exports.fileParser = async (event) => {
                 })
                 .on('end', async () => {
                     await s3.copyObject({
-                        Bucket: Bucket,
+                        Bucket,
                         CopySource: `${Bucket}/${Key}`,
                         Key: Key.replace('uploaded', 'parsed')
                     }).promise();
@@ -35,7 +35,7 @@ module.exports.fileParser = async (event) => {
 
                     await s3.deleteObject({
                         Bucket: Bucket,
-                        Key: Key,
+                        Key
                     }).promise();
 
                     console.log('Object deleted from "uploaded" folder: DONE');
